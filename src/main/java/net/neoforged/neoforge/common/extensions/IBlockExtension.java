@@ -219,7 +219,9 @@ public interface IBlockExtension {
      * @param willHarvest The result of {@link #canHarvestBlock}, if called on the server by a non-creative player, otherwise always false.
      * @param fluid       The current fluid state at current position
      * @return True if the block is actually destroyed.
+     * @deprecated Use the tool stack sensitive version bellow.
      */
+    @Deprecated(forRemoval = true, since = "1.21.8")
     default boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
         if (level.isClientSide()) {
             // On the client, vanilla calls Level#setBlock, per MultiPlayerGameMode#destroyBlock
@@ -228,6 +230,29 @@ public interface IBlockExtension {
             // On the server, vanilla calls Level#removeBlock, per ServerPlayerGameMode#destroyBlock
             return level.removeBlock(pos, false);
         }
+    }
+
+    /**
+     * Called when a player removes a block. This is responsible for
+     * actually destroying the block, and the block is intact at time of call.
+     * This is called regardless of whether the player can harvest the block or
+     * not.
+     *
+     * Return true if the block is actually destroyed.
+     *
+     * This function is called on both the logical client and logical server.
+     *
+     * @param state       The current state.
+     * @param level       The current level
+     * @param player      The player damaging the block, may be null
+     * @param toolStack   The tool the player used to destroy the block.
+     * @param pos         Block position in level
+     * @param willHarvest The result of {@link #canHarvestBlock}, if called on the server by a non-creative player, otherwise always false.
+     * @param fluid       The current fluid state at current position
+     * @return True if the block is actually destroyed.
+     */
+    default boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, ItemStack toolStack, boolean willHarvest, FluidState fluid) {
+        return onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
 
     /**

@@ -129,9 +129,33 @@ public interface IBlockStateExtension {
      * @param willHarvest The result of {@link #canHarvestBlock}, if called on the server by a non-creative player, otherwise always false.
      * @param fluid       The current fluid and block state for the position in the level.
      * @return True if the block is actually destroyed.
+     * @deprecated Use the tool stack sensitive version bellow.
      */
+    @Deprecated(forRemoval = true, since = "1.21.8")
     default boolean onDestroyedByPlayer(Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
         return self().getBlock().onDestroyedByPlayer(self(), level, pos, player, willHarvest, fluid);
+    }
+
+    /**
+     * Called when a player removes a block. This is responsible for
+     * actually destroying the block, and the block is intact at time of call.
+     * This is called regardless of whether the player can harvest the block or
+     * not.
+     *
+     * Return true if the block is actually destroyed.
+     *
+     * This function is called on both the logical client and logical server.
+     *
+     * @param level       The current level
+     * @param player      The player damaging the block, may be null
+     * @param toolStack   The tool the player used to destroy the block.
+     * @param pos         Block position in level
+     * @param willHarvest The result of {@link #canHarvestBlock}, if called on the server by a non-creative player, otherwise always false.
+     * @param fluid       The current fluid and block state for the position in the level.
+     * @return True if the block is actually destroyed.
+     */
+    default boolean onDestroyedByPlayer(Level level, BlockPos pos, Player player, ItemStack toolStack, boolean willHarvest, FluidState fluid) {
+        return self().getBlock().onDestroyedByPlayer(self(), level, pos, player, toolStack, willHarvest, fluid);
     }
 
     /**
