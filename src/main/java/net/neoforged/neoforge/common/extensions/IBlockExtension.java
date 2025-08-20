@@ -245,7 +245,7 @@ public interface IBlockExtension {
      * @param state       The current state.
      * @param level       The current level
      * @param player      The player damaging the block, may be null
-     * @param toolStack   The tool the player used to destroy the block.
+     * @param toolStack   The players main-hand prior to destroying the block and applying damage to the tool.
      * @param pos         Block position in level
      * @param willHarvest The result of {@link #canHarvestBlock}, if called on the server by a non-creative player, otherwise always false.
      * @param fluid       The current fluid state at current position
