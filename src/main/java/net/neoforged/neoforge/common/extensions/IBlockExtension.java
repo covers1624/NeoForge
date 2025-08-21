@@ -214,12 +214,12 @@ public interface IBlockExtension {
      *
      * @param state       The current state.
      * @param level       The current level
-     * @param player      The player damaging the block, may be null
      * @param pos         Block position in level
+     * @param player      The player damaging the block, may be null
      * @param willHarvest The result of {@link #canHarvestBlock}, if called on the server by a non-creative player, otherwise always false.
      * @param fluid       The current fluid state at current position
      * @return True if the block is actually destroyed.
-     * @deprecated Use the tool stack sensitive version bellow.
+     * @deprecated Use {@link #onDestroyedByPlayer(BlockState, Level, BlockPos, Player, ItemStack, boolean, FluidState) the tool stack sensitive version} below.
      */
     @Deprecated(forRemoval = true, since = "1.21.8")
     default boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
@@ -244,9 +244,9 @@ public interface IBlockExtension {
      *
      * @param state       The current state.
      * @param level       The current level
+     * @param pos         Block position in level
      * @param player      The player damaging the block, may be null
      * @param toolStack   The players main-hand prior to destroying the block and applying damage to the tool.
-     * @param pos         Block position in level
      * @param willHarvest The result of {@link #canHarvestBlock}, if called on the server by a non-creative player, otherwise always false.
      * @param fluid       The current fluid state at current position
      * @return True if the block is actually destroyed.

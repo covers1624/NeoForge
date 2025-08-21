@@ -50,7 +50,7 @@
 -                }
  
                  if (this.player.preventsBlockDrops()) {
-+                    removeBlock(p_9281_, blockstate, false, player.getMainHandItem());
++                    removeBlock(p_9281_, blockstate, false, player.getMainHandItem().copy());
                      return true;
                  } else {
                      ItemStack itemstack = this.player.getMainHandItem();
@@ -80,8 +80,8 @@
 +     *
 +     * @param pos The block pos of the destroyed block
 +     * @param state The state of the destroyed block
-+     * @param toolStack The players main-hand prior to destroying the block and applying damage to the tool.
 +     * @param canHarvest If the player breaking the block can harvest the drops of the block
++     * @param toolStack The players main-hand prior to destroying the block and applying damage to the tool.
 +     * @return If the block was removed, as reported by {@link BlockState#onDestroyedByPlayer}.
 +     */
 +    private boolean removeBlock(BlockPos pos, BlockState state, boolean canHarvest, ItemStack toolStack) {
