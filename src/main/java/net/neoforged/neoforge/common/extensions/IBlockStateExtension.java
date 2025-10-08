@@ -131,6 +131,7 @@ public interface IBlockStateExtension {
      * @return True if the block is actually destroyed.
      * @deprecated Use {@link #onDestroyedByPlayer(Level, BlockPos, Player, ItemStack, boolean, FluidState) the tool stack sensitive version} below.
      */
+    @SuppressWarnings("removal")
     @Deprecated(forRemoval = true, since = "1.21.8")
     default boolean onDestroyedByPlayer(Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
         return self().getBlock().onDestroyedByPlayer(self(), level, pos, player, willHarvest, fluid);
