@@ -1,0 +1,24 @@
+--- a/net/minecraft/client/renderer/SubmitNodeCollection.java
++++ b/net/minecraft/client/renderer/SubmitNodeCollection.java
+@@ -305,6 +_,7 @@
+         this.modelSubmits.clear();
+         this.customGeometrySubmits.clear();
+         this.modelPartSubmits.clear();
++        this.customRenderPasses.clear();
+     }
+ 
+     public void endFrame() {
+@@ -312,5 +_,13 @@
+         this.modelPartSubmits.endFrame();
+         this.customGeometrySubmits.endFrame();
+         this.wasUsed = false;
++    }
++
++    public final List<SubmitNodeStorage.CustomRenderPassSubmit> customRenderPasses = new ArrayList<>();
++
++    @Override
++    public void submitCustomRenderPass(PoseStack poseStack, CustomRenderPassRenderer renderer) {
++        wasUsed = true;
++        customRenderPasses.add(new SubmitNodeStorage.CustomRenderPassSubmit(poseStack.last().copy(), renderer));
+     }
+ }

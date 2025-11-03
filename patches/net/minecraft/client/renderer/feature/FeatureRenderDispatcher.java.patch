@@ -1,0 +1,23 @@
+--- a/net/minecraft/client/renderer/feature/FeatureRenderDispatcher.java
++++ b/net/minecraft/client/renderer/feature/FeatureRenderDispatcher.java
+@@ -63,6 +_,7 @@
+             this.itemFeatureRenderer.render(submitnodecollection, this.bufferSource, this.outlineBufferSource);
+             this.blockFeatureRenderer.render(submitnodecollection, this.bufferSource, this.blockRenderDispatcher, this.outlineBufferSource);
+             this.customFeatureRenderer.render(submitnodecollection, this.bufferSource);
++            renderCustomRenderPasses(submitnodecollection);
+             this.particleFeatureRenderer.render(submitnodecollection);
+         }
+ 
+@@ -80,5 +_,12 @@
+     @Override
+     public void close() {
+         this.particleFeatureRenderer.close();
++    }
++
++    private void renderCustomRenderPasses(SubmitNodeCollection collection) {
++        for (var submit : collection.customRenderPasses) {
++            bufferSource.endLastBatch();
++            submit.renderer().render(submit.pose(), bufferSource);
++        }
+     }
+ }

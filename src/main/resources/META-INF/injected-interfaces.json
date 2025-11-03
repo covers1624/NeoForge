@@ -29,6 +29,9 @@
   "net/minecraft/client/renderer/DimensionSpecialEffects": [
     "net/neoforged/neoforge/client/extensions/IDimensionSpecialEffectsExtension"
   ],
+  "net/minecraft/client/renderer/OrderedSubmitNodeCollector": [
+    "net/neoforged/neoforge/client/extensions/OrderedSubmitNodeCollectorExtension"
+  ],
   "net/minecraft/client/renderer/block/model/BlockModelPart": [
     "net/neoforged/neoforge/client/extensions/BlockModelPartExtension"
   ],
